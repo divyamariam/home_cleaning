@@ -4,8 +4,9 @@
 //= require_tree .
 
 function moveEvent(event, dayDelta, minuteDelta, allDay){
+  // data: 'id=' + event.id + '&title=' + event.title + '&day_delta=' + dayDelta + '&minute_delta=' + minuteDelta + '&all_day=' + allDay + '&authenticity_token=' + authenticity_token,
     jQuery.ajax({
-        data: 'id=' + event.id + '&title=' + event.title + '&day_delta=' + dayDelta + '&minute_delta=' + minuteDelta + '&all_day=' + allDay + '&authenticity_token=' + authenticity_token,
+        data: 'id=' + event.id + '&title=' + event.title + '&day_delta=' + dayDelta + '&minute_delta=' + minuteDelta + '&all_day=' + allDay ,
         dataType: 'script',
         type: 'post',
         url: "/events/move"
@@ -58,7 +59,7 @@ function editEvent(event_id){
 
 function deleteEvent(event_id, delete_all){
   jQuery.ajax({
-    data: 'authenticity_token=' + authenticity_token + '&delete_all=' + delete_all,
+    data: '&delete_all=' + delete_all,
     dataType: 'script',
     type: 'delete',
     url: "/events/" + event_id,

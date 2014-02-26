@@ -2,6 +2,7 @@ class EventsController < ApplicationController
   
   def new
     @event = Event.new(:endtime => 1.hour.from_now, :period => "Does not repeat")
+    @teams = Team.all
     render :json => {:form => render_to_string(:partial => 'form')}
   end
   
@@ -20,16 +21,23 @@ class EventsController < ApplicationController
   end
   
   def index
-    
+    if session[:username].nil?
+      redirect_to members_url
+    end
   end
   
   
   def get_events
-    @events = Event.find(:all, :conditions => ["starttime >= '#{Time.at(params['start'].to_i).to_formatted_s(:db)}' and endtime <= '#{Time.at(params['end'].to_i).to_formatted_s(:db)}'"] )
-    events = [] 
-    @events.each do |event|
-      events << {:id => event.id, :title => event.title, :description => event.description || "Some cool description here...", :start => "#{event.starttime.iso8601}", :end => "#{event.endtime.iso8601}", :allDay => event.all_day, :recurring => (event.event_series_id)? true: false}
-    end
+    events = []
+    if params[:empId] == "me"
+      @event = Event.find_by_id 1
+      events << {:id => @event.id, :title => @event.title, :description => @event.description || "Some cool description here...", :start => "#{@event.starttime.iso8601}", :end => "#{@event.endtime.iso8601}", :allDay => @event.all_day, :recurring => (@event.event_series_id)? true: false}
+    else
+      @events = Event.find(:all, :conditions => ["starttime >= '#{Time.at(params['start'].to_i).to_formatted_s(:db)}' and endtime <= '#{Time.at(params['end'].to_i).to_formatted_s(:db)}'"] )
+      @events.each do |event|
+        events << {:id => event.id, :title => event.title, :description => event.description || "Some cool description here...", :start => "#{event.starttime.iso8601}", :end => "#{event.endtime.iso8601}", :allDay => event.all_day, :recurring => (event.event_series_id)? true: false}
+      end
+    end   
     render :text => events.to_json
   end
   
@@ -91,7 +99,8 @@ class EventsController < ApplicationController
 
   private
     def event_params
-      params.require(:event).permit('title', 'description', 'starttime(1i)', 'starttime(2i)', 'starttime(3i)', 'starttime(4i)', 'starttime(5i)', 'endtime(1i)', 'endtime(2i)', 'endtime(3i)', 'endtime(4i)', 'endtime(5i)', 'all_day', 'period', 'frequency', 'commit_button')
+      # params.require(:event).permit('area_code','team_lead','home_details','title', 'description', 'starttime(1i)', 'starttime(2i)', 'starttime(3i)', 'starttime(4i)', 'starttime(5i)', 'endtime(1i)', 'endtime(2i)', 'endtime(3i)', 'endtime(4i)', 'endtime(5i)', 'commit_button')
+      params.require(:event).permit('area_code','team_lead','home_details','title', 'description', 'starttime(1i)', 'starttime(2i)', 'starttime(3i)', 'starttime(4i)', 'starttime(5i)', 'endtime(1i)', 'endtime(2i)', 'endtime(3i)', 'endtime(4i)', 'endtime(5i)', 'all_day', 'period', 'frequency', 'commit_button')
     end
   
 end

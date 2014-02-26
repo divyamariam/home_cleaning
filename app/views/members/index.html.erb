@@ -1,0 +1,7 @@
+<%= form_tag('/members/authenticate') do %>
+  <div><strong><%= label_tag 'Username' %></strong></div>
+  <div><%= text_field_tag 'username'%></div><br>
+  <div><strong><%= label_tag 'Passowrd' %></strong></div>
+  <div><%= password_field_tag 'password'%></div><br>
+  <div><%= submit_tag 'Login' %></div>
+<% end %>

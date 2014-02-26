@@ -1,19 +1,19 @@
-<center><h1> jQuery full calendar integration with rubyonrails </h1></center>
+<center>
+<h1> jQuery full calendar integration with rubyonrails backend 
+by <a href = 'http://webonrails.com'>Akhil Bansal</a> at <a href='http://vinsol.com'>VinSol</a> </h1>
 
-<table><thead><tr><th>
-</th><th></th><th><%= link_to 'Back to Home', '/members/view' %></th><th></th><th><strong><%= link_to 'Logout', '/members/logout' %></strong></th></tr></thead></table>
-
-
+<small>Download demo app source code from <a href = 'http://github.com/vinsol/fullcalendar_rails'>http://github.com/vinsol/fullcalendar_rails</a></small>
+</center>
 <br>
 <p>
   <%=link_to 'Create Event', new_event_url, :id => 'new_event' %>
 </p>
-<!-- <p>
+<p>
 <input type="checkbox" name="me" value="me" id="mechk">I have a car
-</p> -->
+</p>
 
 <script>
-  var meid = "all";
+var meid = $('#mechk').val();  
   
   $(document).ready(function(){
       // page is now ready, initialize the calendar...
@@ -39,29 +39,7 @@
           }
         });
       });
-    $('#mechk').click(function() {
-      if ($(this).is(':checked')) {
-        alert("You clicked me");
-        var meid = $('#mechk').val(); 
 
-        $('#calendar').empty();
-        // Reload calendar with new data set 
-        loadCal(meid);
-      }
-      if (!$(this).is(':checked')) {
-        alert("You un-clicked me");
-        var meid = "all"; 
-
-        $('#calendar').empty();
-        // Reload calendar with new data set 
-        loadCal(meid);
-      }
-    });
-    loadCal(meid);
-
-  });
-
-  function loadCal(meid) {
       $('#calendar').fullCalendar({
           editable: true,
           header: {
@@ -78,12 +56,7 @@
               else 
                   $('#loading').hide();
           },
-          events: {
-                  url: "/events/get_events",
-                  data: {
-                    empId: meid
-                  }
-          },
+          events: "/events/get_events",
           timeFormat: 'h:mm t{ - h:mm t} ',
           dragOpacity: "0.5",
           eventDrop: function(event, dayDelta, minuteDelta, allDay, revertFunc){
@@ -112,8 +85,7 @@
       
       
       });
-    }
-  // });
+  });
 </script>
 <div>
   <div id='calendar'>
@@ -127,7 +99,6 @@
   <div id = "event_actions">
     <span id = "edit_event"></span>
     <span id = "delete_event"></span>
-    <span id = "move_event"></span>
   </div>
 </div>
 <div id = "create_event_dialog" class="dialog" style ="display:none;">

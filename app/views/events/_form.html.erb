@@ -6,9 +6,23 @@
   <%=f.text_field :title %>
 </p>
 <p>
-  <%=f.label :description %>
+  <%=f.label :clean_instructions %>
   <br/>
   <%=f.text_area :description, :rows => 4, :cols => 30 %>
+</p>
+<p>
+  <%=f.label :area_code %>
+  <br/>
+  <%=f.text_field :area_code %>
+</p>
+<p>
+  <%=f.label :team %>
+  <br/> <%= f.collection_select :team_lead, Team.all, :id, :team_name ,{}%>
+</p>
+<p>
+  <%=f.label :home_details %>
+  <br/>
+  <%=f.text_area :home_details, :rows => 4, :cols => 30 %>
 </p>
 <p>
   <%=f.label :starttime, 'Start Time' %>

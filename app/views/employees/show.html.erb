@@ -1,0 +1,62 @@
+<!-- <p id="notice"><%= notice %></p> -->
+
+<p>
+  <strong>Username:</strong>
+  <%= @employee.username %>
+</p>
+
+<p>
+  <strong>Password:</strong>
+  <%= @employee.password %>
+</p>
+
+<p>
+  <strong>Position:</strong>
+  <% position = "Employee"%>
+  <% position = "Admin" if @employee.position ==1 %>
+  <% position = "Team Lead" if @employee.position ==2 %>
+  <%= position %>
+</p>
+
+<p>
+  <strong>First name:</strong>
+  <%= @employee.first_name %>
+</p>
+
+<p>
+  <strong>Last name:</strong>
+  <%= @employee.last_name %>
+</p>
+
+<p>
+  <strong>Contact info:</strong>
+  <%= @employee.contact_info %>
+</p>
+
+<p>
+  <strong>Additional info:</strong>
+  <%= @employee.additional_info %>
+</p>
+
+<p>
+  <strong>Pay scale:</strong>
+  <%= @employee.pay_scale %>
+</p>
+
+<p>
+  <strong>Comments:</strong>
+  <%= @employee.comments %>
+</p>
+
+<p>
+  <strong>Customer feedback:</strong>
+  <%= @employee.customer_feedback %>
+</p>
+
+<p>
+  <strong>Working hours:</strong>
+  <%= @employee.working_hours %>
+</p>
+
+<%= link_to 'Edit', edit_employee_path(@employee) %> |
+<%= link_to 'Back', employees_path %>

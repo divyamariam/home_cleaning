@@ -1,0 +1,34 @@
+<h1>Team Management</h1>
+<br>
+<table><thead><tr><th><%= link_to 'Add New Team', new_team_path %></th><th></th><th><%= link_to 'Back to Home', '/members/view' %></th><th></th><th><strong><%= link_to 'Logout', '/members/logout' %></strong></th></tr></thead></table>
+<br>
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th>&nbsp;</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @teams.each do |team| %>
+      <% %>
+      <tr bgcolor="pink">
+        <td><%= team.team_name %></td> <td></td>     
+        <td><%= link_to 'Edit', edit_team_path(team) %></td>
+        <td><%= link_to 'Delete', team, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+      <% if @new_arr[team.id] %>
+        <% @new_arr[team.id].each do |x| %>
+          <tr>
+            <td><%= x[0] %></td> <td><%= link_to 'Delete', "/members/drop/#{team.id}/#{x[1]}" %></td>
+          </tr>
+        <% end %>
+      <% end %>
+      <tr><td bgcolor="yellow"><%= link_to 'Add Team Members', "/members/new/#{team.id}" %></td></tr>
+    <% end %>
+  </tbody>
+</table>
+

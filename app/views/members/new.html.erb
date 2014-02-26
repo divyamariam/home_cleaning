@@ -1,0 +1,7 @@
+<p><%= session[:err_msg] %>
+<%= form_tag('/members/addemp') do %>
+  <div><strong><%= label_tag 'Select Member' %></strong></div>
+  <div><%= select_tag "member_id", options_from_collection_for_select(@employee, "id", "first_name") %></div><%= hidden_field_tag 'team_id', "#{@team_id}"%><br>
+  <div><%= submit_tag 'Add Member' %></div>
+  <br><div><%= link_to 'Back', teams_url %></div>
+<% end %>

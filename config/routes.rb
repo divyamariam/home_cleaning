@@ -1,4 +1,12 @@
 FullcalendarRails::Application.routes.draw do
+  resources :employees
+
+  # resources :high_scores
+
+  # resources :humen
+
+  resources :teams
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -6,7 +14,12 @@ FullcalendarRails::Application.routes.draw do
   # root 'welcome#index'
 
   # Example of regular route:
-  #   get 'products/:id' => 'catalog#view'
+    get 'members' => 'members#index'
+    get 'members/new/:team_id' => 'members#new'
+    get 'members/drop/:team_id/:member_id' => 'members#drop'
+    get 'members/add' => 'members#show'
+    get 'members/logout' => 'members#logout'
+    # get 'members/create' => 'members#create'
 
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
@@ -59,6 +72,13 @@ FullcalendarRails::Application.routes.draw do
       get :get_events
       post :move
       post :resize
+    end
+  end
+
+  resources :members do 
+    collection do 
+      post :authenticate
+      post :addemp
     end
   end
 end
