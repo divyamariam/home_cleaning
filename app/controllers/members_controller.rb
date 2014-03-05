@@ -34,7 +34,8 @@ class MembersController < ApplicationController
     if valid != nil
       session[:username] = params[:username]
       session[:position] = valid.position
-      redirect_to "/members/view"
+      redirect_to root_url
+      # "/members/view"
     else
       redirect_to root_url
     end

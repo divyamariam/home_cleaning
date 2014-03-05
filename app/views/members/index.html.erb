@@ -1,7 +1,12 @@
+<div class="col-xs-12">
+
 <%= form_tag('/members/authenticate') do %>
-  <div><strong><%= label_tag 'Username' %></strong></div>
-  <div><%= text_field_tag 'username'%></div><br>
-  <div><strong><%= label_tag 'Passowrd' %></strong></div>
-  <div><%= password_field_tag 'password'%></div><br>
-  <div><%= submit_tag 'Login' %></div>
+
+<div class="col-sm-9"><%= label_tag 'Username',nil, :class => "control-label" %></div>
+<br><div class="col-sm-9"><%= text_field_tag 'username'%>
+</div><br><div class="space-4"></div>
+  <div class="col-sm-9"><%= label_tag 'Passowrd',nil, :class => "control-label" %></div><br>
+  <div class="col-sm-9"><%= password_field_tag 'password'%></div><br><div class="space-4"></div>
+  <div class="col-sm-9"><div class="space-4"></div><%= submit_tag "Login", :class => "btn btn-info btn-sm icon-key bigger-110" %></div>
 <% end %>
+</div>
