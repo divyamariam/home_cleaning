@@ -1,28 +1,47 @@
-<h1>Employee Management</h1>
-<br>
-<table><thead><tr><th><b><%= link_to 'Add New Employee', new_employee_path %></b>
-</th><th></th><th><%= link_to 'Back to Home', '/members/view' %></th><th></th><th><strong><%= link_to 'Logout', '/members/logout' %></strong></th></tr></thead></table>
-<br>
-<table>
-  <thead>
-    <tr>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th><th></th>
-    </tr>
-  </thead>
+<div id="navbar" class="navbar navbar-default">
+  <div id="navbar-container" class="navbar-container">
+    <div class="navbar-header pull-left">
+      <a class="navbar-brand" href="#"><small><i class="icon-leaf"></i>Home/Business Cleaning</small></a>
+    </div>
+    <div class="navbar-header pull-right" role="navigation">
+      <ul class="nav ace-nav">
+        <li class="light-blue">Welcome <%=session[:username]%><span class="icon-asterisk "></span></li>
+        <li class="purple"><%= link_to '', root_url ,:class => "icon-home"%></li>
+        <li class="green"><%= link_to '', teams_path ,:class => "icon-group"%></li>
+        <li class="grey"><%= link_to '', '/members/logout', :class => "icon-bell-alt icon-animated-bell", :alt => "Logout" %></li>        
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="page-content">
+  <div class="page-header">
+    <h1>Member Management</h1>
+  </div>
+  <div><%= link_to 'Add New Employee', new_employee_path ,:class => "btn btn-xs" %></div><div></div>
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="table-responsive">
+        <table id="sample-table-1" class="table table-striped table-bordered table-hover">
+          <thead>
+            <tr>
+              <th>Member Name</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @employees.each do |employee| %>
+              <tr>
+                <td><%= link_to employee.username, employee %></td>
+                <td><%= link_to '', edit_employee_path(employee), :class =>"btn btn-xs btn-info icon-edit bigger-120" %> <%= link_to '', employee, method: :delete, data: { confirm: 'Are you sure?' } , :class =>"btn btn-xs btn-danger icon-trash bigger-120" %> </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
 
-  <tbody>
-    <% @employees.each do |employee| %>
-      <tr>
-        <td><%= employee.username %></td><td></td>
-        <td><%= link_to 'View', employee %></td>
-        <td><%= link_to 'Edit', edit_employee_path(employee) %></td>
-        <td><%= link_to 'Delete', employee, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+
 
 

@@ -45,4 +45,21 @@ class MembersController < ApplicationController
      session[:position] = nil
      redirect_to members_url
   end
+
+  # def ajaxchk
+  #   @teams = Team.find(1)
+  #   puts "teams =#{@teams.inspect}"
+  #   respond_to do |format|
+  #     format.html # renders ajaxchk.html.erb
+  #     format.js   # renders ajaxchk.js.erb
+  #   end
+  # end
+
+  # def hello
+  # #### your code goes here #####
+  # @teams = Team.find(1)
+  # respond_to do |format|
+  #   format.js { render :layout=>false }
+  # end
+# end
 end

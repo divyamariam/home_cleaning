@@ -1,122 +1,133 @@
-<center><h1> jQuery full calendar integration with rubyonrails </h1></center>
-
-<table><thead><tr><th>
-</th><th></th><th><%= link_to 'Back to Home', '/members/view' %></th><th></th><th><strong><%= link_to 'Logout', '/members/logout' %></strong></th></tr></thead></table>
-
-
-<br>
-<p>
-  <%=link_to 'Create Event', new_event_url, :id => 'new_event' %>
-</p>
+<p><%=hidden_field "new_event", "url", :value => new_event_url %></p>
 <!-- <p>
 <input type="checkbox" name="me" value="me" id="mechk">I have a car
 </p> -->
-
+<div id="navbar" class="navbar navbar-default">
+  <div id="navbar-container" class="navbar-container">
+    <div class="navbar-header pull-left">
+      <a class="navbar-brand" href="#"><small><i class="icon-leaf"></i>Home/Business Cleaning</small></a>
+    </div>
+    <div class="navbar-header pull-right" role="navigation">
+      <ul class="nav ace-nav">
+        <li class="light-blue">Welcome <%=session[:username]%><span class="icon-asterisk "></span></li>
+        <li class="purple"><%= link_to '', teams_path ,:class => "icon-group"%></li>
+        <li class="green"><%= link_to '', employees_path ,:class => "icon-home"%></li>
+        <li class="grey"><%= link_to '', '/members/logout', :class => "icon-bell-alt icon-animated-bell", :alt => "Logout" %></li>        
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="page-content">
 <script>
-  var meid = "all";
-  
+  var meid = "all";  
   $(document).ready(function(){
-      // page is now ready, initialize the calendar...
-      $('#new_event').click(function(event) {
-        event.preventDefault();
-        var url = $(this).attr('href');
-        $.ajax({
-          url: url,
-          beforeSend: function() {
-            $('#loading').show();
-          },
-          complete: function() {
-            $('#loading').hide();
-          },
-          success: function(data) {
-            $('#create_event').replaceWith(data['form']);
-            $('#create_event_dialog').dialog({
-              title: 'New Event',
-              modal: true,
-              width: 500,
-              close: function(event, ui) { $('#create_event_dialog').dialog('destroy') }
-            });
-          }
-        });
-      });
-    $('#mechk').click(function() {
-      if ($(this).is(':checked')) {
-        alert("You clicked me");
-        var meid = $('#mechk').val(); 
-
-        $('#calendar').empty();
-        // Reload calendar with new data set 
-        loadCal(meid);
-      }
-      if (!$(this).is(':checked')) {
-        alert("You un-clicked me");
-        var meid = "all"; 
-
-        $('#calendar').empty();
-        // Reload calendar with new data set 
-        loadCal(meid);
-      }
+    $('#view_jobs').click(function() {
+      var allVals = ($("input[name=chkboxName]:checked").map(function () {return this.value;}).get().join(","));
+      $('#calendar').empty(); 
+      loadCal(allVals);
     });
     loadCal(meid);
-
   });
 
   function loadCal(meid) {
-      $('#calendar').fullCalendar({
-          editable: true,
-          header: {
-              left: 'prev,next today',
-              center: 'title',
-              right: 'month,agendaWeek,agendaDay'
-          },
-          defaultView: 'agendaWeek',
-          height: 500,
-          slotMinutes: 15,
-          loading: function(bool){
-              if (bool) 
-                  $('#loading').show();
-              else 
-                  $('#loading').hide();
-          },
-          events: {
-                  url: "/events/get_events",
-                  data: {
-                    empId: meid
-                  }
-          },
-          timeFormat: 'h:mm t{ - h:mm t} ',
-          dragOpacity: "0.5",
-          eventDrop: function(event, dayDelta, minuteDelta, allDay, revertFunc){
+    $('#calendar').fullCalendar({
+        editable: true,
+        header: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'month,agendaWeek,agendaDay'
+        },
+        defaultView: 'agendaWeek',
+        height: 500,
+        slotMinutes: 15,
+        selectable: true,
+        selectHelper: true,
+        select: function(start, end, allDay) {
+          //var url = "http://0.0.0.0:3000/events/new";
+          var url = $('#new_event_url').val();
+          $.ajax({
+            url: url,
+            beforeSend: function() {
+              $('#loading').show();
+            },
+            complete: function() {
+              $('#loading').hide();
+            },
+            success: function(data) {
+              $('#create_event').replaceWith(data['form']);
+              $('#create_event_dialog').dialog({
+                title: 'New Event',
+                modal: true,
+                width: 500,
+                close: function(event, ui) { $('#create_event_dialog').dialog('destroy') }
+              });
+            }
+          });
+        },
+
+        loading: function(bool){
+            if (bool) 
+                $('#loading').show();
+            else 
+                $('#loading').hide();
+        },
+        events: {
+                url: "/events/get_events",
+                data: {
+                  empId: meid
+                }
+        },
+        timeFormat: 'h:mm t{ - h:mm t} ',
+        dragOpacity: "0.5",
+        eventDrop: function(event, dayDelta, minuteDelta, allDay, revertFunc){
 //              if (confirm("Are you sure about this change?")) {
-                  moveEvent(event, dayDelta, minuteDelta, allDay);
+                moveEvent(event, dayDelta, minuteDelta, allDay);
 //              }
 //              else {
 //                  revertFunc();
 //              }
-          },
-          
-          eventResize: function(event, dayDelta, minuteDelta, revertFunc){
+        },
+        
+        eventResize: function(event, dayDelta, minuteDelta, revertFunc){
 //              if (confirm("Are you sure about this change?")) {
-                  resizeEvent(event, dayDelta, minuteDelta);
+                resizeEvent(event, dayDelta, minuteDelta);
 //              }
 //              else {
 //                  revertFunc();
 //              }
-          },
+        },
           
-          eventClick: function(event, jsEvent, view){
-              showEventDetails(event);
-          },
-      
-      
-      
-      
+        eventClick: function(event, jsEvent, view){
+            showEventDetails(event);
+        },      
       });
     }
-  // });
 </script>
+
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="row">
+        <div class="col-sm-9">
+          <div id='calendar'></div>
+        </div>
+        <div class="col-sm-3">
+          <div class="widget-box transparent">
+            <div class="widget-header"><h4>Teams</h4></div>
+            <div class="external-event label-info">
+              <% @teams.each do |team| %>           
+                <div class=""><!-- check_box('teamlist', '',{}, team.id, 'lst') %> -->
+                <%= check_box_tag "chkboxName", team.id, :class =>"abc" %> <%= team.team_name %></div>
+              <% end %>            
+            </div>
+            <div data-class="label-grey" style="position: relative;"><%= label_tag "View Jobs", nil, :class=> "btn" , :id=>"view_jobs"%></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <div>
-  <div id='calendar'>
+  <div id='calendar1'>
   </div>
 </div>
 <div id = "desc_dialog" class="dialog" style ="display:none;">
@@ -134,3 +145,5 @@
   <div id = "create_event">
   </div>
 </div>
+
+

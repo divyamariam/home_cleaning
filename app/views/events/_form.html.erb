@@ -12,8 +12,7 @@
 </p>
 <p>
   <%=f.label :area_code %>
-  <br/>
-  <%=f.text_field :area_code %>
+  <br/><%= f.select :area_code, [ 'M01', 'M02', 'M03', 'M04', 'M05','M06' ] %>
 </p>
 <p>
   <%=f.label :team %>

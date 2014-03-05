@@ -24,20 +24,23 @@ class EventsController < ApplicationController
     if session[:username].nil?
       redirect_to members_url
     end
+     @teams = Team.all
   end
   
   
   def get_events
     events = []
-    if params[:empId] == "me"
-      @event = Event.find_by_id 1
-      events << {:id => @event.id, :title => @event.title, :description => @event.description || "Some cool description here...", :start => "#{@event.starttime.iso8601}", :end => "#{@event.endtime.iso8601}", :allDay => @event.all_day, :recurring => (@event.event_series_id)? true: false}
-    else
+    if params[:empId] == "all" || params[:empId] == ""
       @events = Event.find(:all, :conditions => ["starttime >= '#{Time.at(params['start'].to_i).to_formatted_s(:db)}' and endtime <= '#{Time.at(params['end'].to_i).to_formatted_s(:db)}'"] )
-      @events.each do |event|
-        events << {:id => event.id, :title => event.title, :description => event.description || "Some cool description here...", :start => "#{event.starttime.iso8601}", :end => "#{event.endtime.iso8601}", :allDay => event.all_day, :recurring => (event.event_series_id)? true: false}
-      end
-    end   
+      # @events.each do |event|
+      #   events << {:id => event.id, :title => event.title, :description => event.description || "Some cool description here...", :start => "#{event.starttime.iso8601}", :end => "#{event.endtime.iso8601}", :allDay => event.all_day, :recurring => (event.event_series_id)? true: false}
+      # end
+    else
+      @events = Event.where('team_lead in (?)',params[:empId])
+    end
+    @events.each do |event|
+      events << {:id => event.id, :title => event.title, :description => event.description || "Some cool description here...", :start => "#{event.starttime.iso8601}", :end => "#{event.endtime.iso8601}", :allDay => event.all_day, :recurring => (event.event_series_id)? true: false}
+    end         
     render :text => events.to_json
   end
   
