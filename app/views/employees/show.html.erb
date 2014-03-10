@@ -1,62 +1,68 @@
 <!-- <p id="notice"><%= notice %></p> -->
+<div id="navbar" class="navbar navbar-default">
+  <div id="navbar-container" class="navbar-container">
+    <div class="navbar-header pull-left">
+      <a class="navbar-brand" href="#"><small><i class="icon-leaf"></i>Home/Business Cleaning</small></a>
+    </div>
+    <div class="navbar-header pull-right" role="navigation">
+      <ul class="nav ace-nav">
+        <li class="light-blue">Welcome <%=session[:username]%><span class="icon-asterisk "></span></li>
+        <li class="purple"><%= link_to '', employees_path ,:class => "icon-home"%></li>
+        <li class="green"><%= link_to '', teams_path ,:class => "icon-group"%></li>
+        <li class="grey"><%= link_to '', '/members/logout', :class => "icon-bell-alt icon-animated-bell", :alt => "Logout" %></li>        
+      </ul>
+    </div>
+  </div>
+</div>
 
-<p>
-  <strong>Username:</strong>
-  <%= @employee.username %>
-</p>
+<div class="page-content">
+  <div class="page-header"><h1 align="center">Employee Details</h1></div>
 
-<p>
-  <strong>Password:</strong>
-  <%= @employee.password %>
-</p>
-
-<p>
-  <strong>Position:</strong>
-  <% position = "Employee"%>
-  <% position = "Admin" if @employee.position ==1 %>
-  <% position = "Team Lead" if @employee.position ==2 %>
-  <%= position %>
-</p>
-
-<p>
-  <strong>First name:</strong>
-  <%= @employee.first_name %>
-</p>
-
-<p>
-  <strong>Last name:</strong>
-  <%= @employee.last_name %>
-</p>
-
-<p>
-  <strong>Contact info:</strong>
-  <%= @employee.contact_info %>
-</p>
-
-<p>
-  <strong>Additional info:</strong>
-  <%= @employee.additional_info %>
-</p>
-
-<p>
-  <strong>Pay scale:</strong>
-  <%= @employee.pay_scale %>
-</p>
-
-<p>
-  <strong>Comments:</strong>
-  <%= @employee.comments %>
-</p>
-
-<p>
-  <strong>Customer feedback:</strong>
-  <%= @employee.customer_feedback %>
-</p>
-
-<p>
-  <strong>Working hours:</strong>
-  <%= @employee.working_hours %>
-</p>
-
-<%= link_to 'Edit', edit_employee_path(@employee) %> |
-<%= link_to 'Back', employees_path %>
+  <div class="row" align="center">
+    <div class="width-50">
+      <div class="table-responsive">
+        <table width="60%" id="emp-details" class="table table-striped table-bordered table-hover">
+          <tbody>
+            <tr width="60%"><td width="30%">Username</td>
+              <td width="30%"><%= @employee.username %></td>
+            </tr>
+            <tr><td width="30%">Password</td>
+              <td width="30%" ><%= @employee.password %></td>
+            </tr>
+            <tr><td width="30%" >Firstname</td>
+              <td width="30%"><%= @employee.first_name %></td>
+            </tr>
+            <tr><td width="30%">LAstname</td>
+              <td width="30%"><%= @employee.last_name %></td>
+            </tr>
+            <tr><td width="30%">Position</td>
+               <td width="30%"><% position = "Employee"%>
+    <% position = "Admin" if @employee.position ==1 %>
+    <% position = "Team Lead" if @employee.position ==2 %>
+    <%= position %></td>
+            </tr>
+            <tr> <td width="30%">Contact Info</td>
+               <td width="30%"><%= @employee.contact_info %></td>
+            </tr>
+            <tr> <td width="30%">Additional Info</td>
+               <td width="30%"><%= @employee.additional_info %></td>
+            </tr>
+            <tr> <td width="30%">Pay Scale</td>
+               <td width="30%"><%= @employee.pay_scale %></td>
+            </tr>
+            <tr> <td width="30%">Comments</td>
+               <td width="30%"><%= @employee.comments %></td>
+            </tr>
+            <tr> <td width="30%">Customer Feedback</td>
+               <td width="30%"><%= @employee.customer_feedback %></td>
+            </tr>
+            <tr> <td width="30%">Working hours</td>
+               <td width="30%"><%= @employee.working_hours %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <%= link_to 'Back To Employee Home', employees_path ,:class => "btn btn-sm"%></li>
+    </div>
+  </div>
+</div>

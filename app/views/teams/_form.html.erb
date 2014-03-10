@@ -10,14 +10,16 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= f.label :team_name %> : <%= f.text_field :team_name %>
+<div style="width:550px;">
+  <div class="">
+    <%= f.label :team_name, :class => "col-sm-3 control-label no-padding-right" %> <%= f.text_field :team_name %>
   </div>
-  <div class="field">
-    <%= f.label :team_lead %> : <%= f.collection_select :team_lead, Employee.all, :id, :first_name ,{:multiple => true }%> 
+  <div class="">
+    <%= f.label :team_lead, :class => "col-sm-3 control-label no-padding-right"%> <%= f.collection_select :team_lead, Employee.all, :id, :username ,{:multiple => true }%> 
   </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="actions" id="team_actions">
+    <%= f.submit %> 
   </div>
+</div>
 <% end %>
+</div>

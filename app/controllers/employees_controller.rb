@@ -5,6 +5,8 @@ class EmployeesController < ApplicationController
   # GET /employees.json
   def index
     @employees = Employee.all
+    puts @employees.inspect
+    @employee = Employee.new
   end
 
   # GET /employees/1
@@ -28,8 +30,8 @@ class EmployeesController < ApplicationController
 
     respond_to do |format|
       if @employee.save
-        format.html { redirect_to @employee, notice: 'Employee was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @employee }
+        format.html { redirect_to employees_path, notice: '' }
+        format.json { render action: 'index', status: :created }
       else
         format.html { render action: 'new' }
         format.json { render json: @employee.errors, status: :unprocessable_entity }
@@ -42,7 +44,7 @@ class EmployeesController < ApplicationController
   def update
     respond_to do |format|
       if @employee.update(employee_params)
-        format.html { redirect_to @employee, notice: 'Employee was successfully updated.' }
+        format.html { redirect_to employees_path, notice: '' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }

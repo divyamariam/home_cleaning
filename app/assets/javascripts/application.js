@@ -1,7 +1,11 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
-//= require_tree .
+//= require_tree
+//= require jquery.modal
+//= require jquery.modal.min
+
+ // require jquery.ui.all
 
 function moveEvent(event, dayDelta, minuteDelta, allDay){
   // data: 'id=' + event.id + '&title=' + event.title + '&day_delta=' + dayDelta + '&minute_delta=' + minuteDelta + '&all_day=' + allDay + '&authenticity_token=' + authenticity_token,
@@ -94,11 +98,7 @@ function showPeriodAndFrequency(value){
             
         default:
             $('#frequency').hide();
-    }
-    
-    
-    
-    
+    }    
 }
 $(document).ready(function(){
   $('#create_event_dialog, #desc_dialog').on('submit', "#event_form", function(event) {
@@ -125,5 +125,5 @@ $(document).ready(function(){
     function handle_error(xhr) {
       alert(xhr.responseText);
     }
-  })
+  });
 });

@@ -8,21 +8,22 @@ class TeamsController < ApplicationController
     emp_data = {}
     @new_arr =[]
     @teams.each do |team|
-      all_data = Employee.find_by_sql("select employees.id,employees.first_name,employees.last_name,team_members.team_id,team_members.member_id from employees,team_members where team_members.team_id=#{team.id} and team_members.member_id=employees.id")
+      all_data = Employee.find_by_sql("select employees.id,employees.username,employees.last_name,team_members.team_id,team_members.member_id from employees,team_members where team_members.team_id=#{team.id} and team_members.member_id=employees.id")
       i=0
       if all_data != nil
         i = 0
         k = team.id
         @new_arr[k] = []
-        puts "team-id, k= #{k}"
+        # puts "team-id, k= #{k}"
         all_data.each do |data|
           if team.id !=nil
-            @new_arr[k][i]=[data['first_name'],data['id']]
+            @new_arr[k][i]=[data['username'],data['id']]
           end
           i = i+1
         end
       end     
     end
+    @team = Team.new
   end
 
   # GET /teams/1
@@ -46,9 +47,11 @@ class TeamsController < ApplicationController
 
     respond_to do |format|
       if @team.save
-        format.html { redirect_to @team, notice: 'Team was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @team }
+        # render :nothing => true
+        format.html { redirect_to teams_path, notice: '' }
+        format.json { render action: 'index', status: :created }
       else
+        # render :text => @team.errors, :status => :unprocessable_entity
         format.html { render action: 'new' }
         format.json { render json: @team.errors, status: :unprocessable_entity }
       end
@@ -60,7 +63,7 @@ class TeamsController < ApplicationController
   def update
     respond_to do |format|
       if @team.update(team_params)
-        format.html { redirect_to @team, notice: 'Team was successfully updated.' }
+        format.html { redirect_to teams_path, notice: '' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }

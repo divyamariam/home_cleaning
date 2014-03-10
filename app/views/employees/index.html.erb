@@ -1,3 +1,33 @@
+<script>
+ $(document).ready(function() {
+   $('form#new_employee').submit(function(e) {  
+    // alert("submitting in new form");
+    var uname = $.trim($('#employee_username').val());
+    var passwd = $.trim($('#employee_password').val());
+    var valuesToSubmit = $(this).serialize();
+    if ((uname.length > 0)  && (passwd.length > 0 ) ) {
+      $.modal.close();
+      $.ajax({
+          type: "POST",
+          url: $(this).attr('action'), //sumbits it to the given url of the form
+          data: valuesToSubmit,
+          dataType: "HTML" 
+      }).success(function(data){
+      // disaply new charge in the table 
+          $('#content_div').html(data);
+      });
+      return false; // prevents normal behaviour
+    }
+    else {
+      alert("Employee name/password cannot be blank");
+      return false;
+    }
+  });
+});
+
+</script>
+
+
 <div id="navbar" class="navbar navbar-default">
   <div id="navbar-container" class="navbar-container">
     <div class="navbar-header pull-left">
@@ -17,7 +47,8 @@
   <div class="page-header">
     <h1>Member Management</h1>
   </div>
-  <div><%= link_to 'Add New Employee', new_employee_path ,:class => "btn btn-xs" %></div><div></div>
+  <div><a rel="modal:open" href="#ex2" class="btn btn-xs">Add New Employee</a></div>
+
   <div class="row">
     <div class="col-xs-12">
       <div class="table-responsive">
@@ -39,6 +70,10 @@
         </table>
       </div>
     </div>
+  </div>
+    <div id="ex2" style="display:none;width:600px; height: 500px;">
+    <h1 align="center">New employee</h1>
+    <%=  render 'form' %>
   </div>
 </div>
 
