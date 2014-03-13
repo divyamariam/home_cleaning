@@ -113,13 +113,22 @@
         <div class="col-sm-3">
           <div class="widget-box transparent">
             <div class="widget-header"><h4>Teams</h4></div>
-            <div class="external-event label-info">
-              <% @teams.each do |team| %>           
-                <div class=""><!-- check_box('teamlist', '',{}, team.id, 'lst') %> -->
+            <div class="external-events">
+              <% inr = 1 %>
+              <% @teams.each do |team| %>
+                <% if inr%3 == 0 %>           
+                <div class="external-event label-success">
+                <% elsif inr%3 == 1%>
+                <div class="external-event label-pink">
+                <%else %>
+                <div class="external-event label-info">
+                <% end %>
+                <!-- check_box('teamlist', '',{}, team.id, 'lst') %> -->
                 <%= check_box_tag "chkboxName", team.id, :class =>"abc" %> <%= team.team_name %></div>
+                <% inr += 1 %>
               <% end %>            
             </div>
-            <div data-class="label-grey" style="position: relative;"><%= label_tag "View Jobs", nil, :class=> "btn" , :id=>"view_jobs"%></div>
+            <div data-class="label-grey" style="position: relative;"><%= label_tag "View Jobs", nil, :class=> "btn btn-sm" , :id=>"view_jobs"%></div>
           </div>
         </div>
       </div>
