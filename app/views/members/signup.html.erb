@@ -1,0 +1,60 @@
+<div id="navbar" class="navbar navbar-default">
+  <div id="navbar-container" class="navbar-container">
+    <div class="navbar-header pull-left">
+      <a class="navbar-brand" href="#"><small><i class="icon-leaf"></i>Home/Business Cleaning</small></a>
+    </div>
+    <div class="navbar-header pull-right" role="navigation">
+      <ul class="nav ace-nav">
+        <li class="grey"><%= link_to 'Login', members_url, :class => "icon-bell-alt icon-animated-bell", :alt => "Logout" %></li>        
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<div class="page-content">
+  <div class="page-header">
+    <h1>Members Signup</h1>
+  </div>
+  <% if session[:err_msg] %>
+  <div class="lighter block green"><h5> <%= session[:err_msg] %></h5></div>
+  <%end%>
+
+<%= form_tag('/members/addtoemployee') do %>
+  <div class="form-group">
+    <%= label_tag :username ,nil, :class => "col-sm-3 control-label no-padding-right" %><div class="col-sm-9"> <%= text_field_tag :username %><div class="space-4"></div></div>
+  </div>
+  <div class="form-group">
+    <%= label_tag :password ,nil, :class => "col-sm-3 control-label no-padding-right"%><div class="col-sm-9"> <%= password_field_tag :password, :value =>  '' %><div class="space-4"></div></div>
+  </div>
+  <div class="form-group">
+    <%= label_tag :position ,nil, :class => "col-sm-3 control-label no-padding-right"%><div class="col-sm-9"> <%= select_tag :position, options_for_select([["Employee", 0], ["Admin",1],["Team Lead",2]])%><div class="space-4"></div></div>
+  </div>
+
+  <div class="form-group">
+    <%= label_tag :first_name ,nil, :class => "col-sm-3 control-label no-padding-right"%><div class="col-sm-9"><%= text_field_tag :first_name %><div class="space-4"></div></div>
+  </div>
+  <div class="form-group">
+    <%= label_tag :last_name ,nil, :class => "col-sm-3 control-label no-padding-right"%><div class="col-sm-9"><%= text_field_tag :last_name %><div class="space-4"></div></div>
+  </div>
+  <div class="form-group">
+    <%= label_tag :contact_info,nil, :class => "col-sm-3 control-label no-padding-right" %><div class="col-sm-9"><%= text_area_tag :contact_info, nil, :rows => 1, :cols => 30 %><div class="space-4"></div></div>
+  </div>
+  <div class="form-group" style="">
+    <%= label_tag :additional_info ,nil, :class => "col-sm-3 control-label no-padding-right"%>
+    <div class="col-sm-9"><%= text_area_tag :additional_info, nil, :rows => 1, :cols => 30 %><div class="space-4"></div></div>
+  </div>
+  <div class="form-group">
+    <%= label_tag :pay_scale ,nil, :class => "col-sm-3 control-label no-padding-right"%><div class="col-sm-9"><%= number_field_tag :pay_scale %><div class="space-4"></div></div>
+  </div>
+  <div class="form-group">
+    <%= label_tag :comments ,nil, :class => "col-sm-3 control-label no-padding-right"%><div class="col-sm-9"><%= text_area_tag :comments, nil, :rows => 1, :cols => 30 %><div class="space-4"></div></div>
+  </div>
+  <div class="btn btn-xs">
+    <%= submit_tag 'Signup',:class=>"btn btn-sm" %>
+  </div>
+<% end %>
+</div>

@@ -47,6 +47,36 @@ class MembersController < ApplicationController
      redirect_to members_url
   end
 
+  def signup
+    @employee = Employee.new
+  end
+
+  def addtoemployee
+    exists = Employee.find_by username: params[:username]
+    if exists.nil?
+      @employee = Employee.new
+      @employee.username = params[:username]
+      @employee.password = params[:password]
+      @employee.position = params[:position]
+      @employee.first_name = params[:first_name]
+      @employee.last_name = params[:last_name]
+      @employee.contact_info = params[:contact_info]
+      @employee.additional_info = params[:additional_info]
+      @employee.pay_scale = params[:pay_scale]
+      @employee.comments = params[:comments]
+
+      if @employee.save
+        redirect_to root_url
+      else
+        session[:err_msg] = "Member already added"
+        redirect_to "/members/signup"
+      end
+    else
+      session[:err_msg] = "Member already Existing"
+      redirect_to "/members/signup"
+    end
+  end
+
   # def ajaxchk
   #   @teams = Team.find(1)
   #   puts "teams =#{@teams.inspect}"

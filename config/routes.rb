@@ -19,7 +19,7 @@ FullcalendarRails::Application.routes.draw do
     get 'members/drop/:team_id/:member_id' => 'members#drop'
     get 'members/add' => 'members#show'
     get 'members/logout' => 'members#logout'
-    # get 'members/create' => 'members#create'
+    get 'members/signup' => 'members#signup'
 
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
@@ -79,6 +79,7 @@ FullcalendarRails::Application.routes.draw do
     collection do 
       post :authenticate
       post :addemp
+      post :addtoemployee
     end
   end
 end
