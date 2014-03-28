@@ -1,9 +1,13 @@
 <%#remote_form_for @event, :url => {:action => :create}, :before => "$('#creating_events').show();", :complete => "$('#creating_events').hide();" do |f| %>
 <%= form_for @event, :html => { :id => 'event_form' } do |f| %>
 <p>
-  <%=f.label :title %>
-  <br/>
-  <%=f.text_field :title %>
+  <%=f.label :title %>  <%=f.text_field :title %>
+</p>
+<p>
+  <%=f.label :area_code %> <%= f.select :area_code, [ 'M01', 'M02', 'M03', 'M04', 'M05','M06' ] %>
+</p>
+<p>
+  <%=f.label :team %> <%= f.collection_select :team_lead, Team.all, :id, :team_name ,{}%>
 </p>
 <p>
   <%=f.label :clean_instructions %>
@@ -11,27 +15,15 @@
   <%=f.text_area :description, :rows => 4, :cols => 30 %>
 </p>
 <p>
-  <%=f.label :area_code %>
-  <br/><%= f.select :area_code, [ 'M01', 'M02', 'M03', 'M04', 'M05','M06' ] %>
-</p>
-<p>
-  <%=f.label :team %>
-  <br/> <%= f.collection_select :team_lead, Team.all, :id, :team_name ,{}%>
-</p>
-<p>
   <%=f.label :home_details %>
   <br/>
   <%=f.text_area :home_details, :rows => 4, :cols => 30 %>
 </p>
 <p>
-  <%=f.label :starttime, 'Start Time' %>
-  <br/>
-  <%=f.datetime_select :starttime %>
+  <%=f.label :starttime, 'Start Time' %> <%=f.datetime_select :starttime %>
 </p>
 <p>
-  <%=f.label :endtime, 'End Time' %>
-  <br/>
-  <%=f.datetime_select :endtime %>
+  <%=f.label :endtime, 'End Time' %>  <%=f.datetime_select :endtime %>
 </p>
 <p>
   <%=f.label :all_day %>

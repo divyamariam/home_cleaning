@@ -3927,6 +3927,9 @@ function AgendaEventRenderer() {
 				seg.vsides = vsides(eventElement, true);
 				seg.hsides = hsides(eventElement, true);
 				titleElement = eventElement.find('.fc-event-title');
+                if (i%2 == 0) {
+				  titleElement = eventElement.find('.fc-event-title label-pink');
+				}
 				if (titleElement.length) {
 					seg.contentTop = titleElement[0].offsetTop;
 				}
@@ -3987,9 +3990,17 @@ function AgendaEventRenderer() {
 				"left:" + seg.left + "px;" +
 				skinCss +
 				"'" +
-			">" +
-			"<div class='fc-event-inner'>" +
-			"<div class='fc-event-time'>" +
+			">" ;
+			// +
+			// "<div class='fc-event-inner label-pink'>" +
+
+		    if (event.id %2 == 0){
+              html += "<div class='fc-event-inner label-pink'>";
+		    }
+		    else{
+		      html += "<div class='fc-event-inner'>";
+		    }	
+			html += "<div class='fc-event-time'>" +
 			htmlEscape(formatDates(event.start, event.end, opt('timeFormat'))) +
 			"</div>" +
 			"<div class='fc-event-title'>" +
@@ -5349,8 +5360,15 @@ function DayEventRenderer() {
 				"left:" + segment.left + "px;" +
 				skinCss +
 				"'" +
-			">" +
-			"<div class='fc-event-inner'>";
+			">" ;
+			// +	"<div class='fc-event-inner'>";
+			if (event.id %2 == 0){
+			  html += "<div class='fc-event-inner label-pink'>";
+			}
+			else {
+			  html += "<div class='fc-event-inner'>";
+			}
+			// label-pink
 		if (!event.allDay && segment.isStart) {
 			html +=
 				"<span class='fc-event-time'>" +
