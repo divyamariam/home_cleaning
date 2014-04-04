@@ -3994,12 +3994,14 @@ function AgendaEventRenderer() {
 			// +
 			// "<div class='fc-event-inner label-pink'>" +
 
-		    if (event.id %2 == 0){
-              html += "<div class='fc-event-inner label-pink'>";
-		    }
-		    else{
-		      html += "<div class='fc-event-inner'>";
-		    }	
+		    // if (event.id %2 == 0){
+      //         html += "<div class='fc-event-inner label-pink'>";
+		    // }
+		    // else{
+		    //   html += "<div class='fc-event-inner'>";
+		    // }
+            html += "<div class='fc-event-inner "+ event.theme +"'>"; 
+
 			html += "<div class='fc-event-time'>" +
 			htmlEscape(formatDates(event.start, event.end, opt('timeFormat'))) +
 			"</div>" +
@@ -5362,12 +5364,13 @@ function DayEventRenderer() {
 				"'" +
 			">" ;
 			// +	"<div class='fc-event-inner'>";
-			if (event.id %2 == 0){
-			  html += "<div class='fc-event-inner label-pink'>";
-			}
-			else {
-			  html += "<div class='fc-event-inner'>";
-			}
+			html += "<div class='fc-event-inner "+ event.theme +"'>"; 
+			// if (event.id %2 == 0){
+			//   html += "<div class='fc-event-inner label-pink'>";
+			// }
+			// else {
+			//   html += "<div class='fc-event-inner'>";
+			// }
 			// label-pink
 		if (!event.allDay && segment.isStart) {
 			html +=

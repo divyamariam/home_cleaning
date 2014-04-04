@@ -39,7 +39,9 @@ class EventsController < ApplicationController
       @events = Event.where('team_lead in (?)',params[:empId])
     end
     @events.each do |event|
-      events << {:id => event.id, :title => event.title, :description => event.description || "Some cool description here...", :start => "#{event.starttime.iso8601}", :end => "#{event.endtime.iso8601}", :allDay => event.all_day, :recurring => (event.event_series_id)? true: false}
+      team = Team.find_by_id event.team_lead
+      theme = (team ? team.theme : 'label-yellow')
+      events << {:id => event.id, :theme => theme , :title => event.title, :description => event.description || "Some cool description here...", :start => "#{event.starttime.iso8601}", :end => "#{event.endtime.iso8601}", :allDay => event.all_day, :recurring => (event.event_series_id)? true: false}
     end         
     render :text => events.to_json
   end

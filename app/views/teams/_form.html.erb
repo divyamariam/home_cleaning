@@ -17,6 +17,10 @@
   <div class="">
     <%= f.label :team_lead, :class => "col-sm-3 control-label no-padding-right"%> <%= f.collection_select :team_lead, Employee.all, :id, :username ,{:multiple => true }%> 
   </div>
+  <div class="">   
+    <%= f.label :theme, :class => "col-sm-3 control-label no-padding-right"%>
+    <%= f.select(:theme, options_for_select( Theme.all.collect { |thm| [thm.name, thm.theme, {:class=> thm.theme } ] },:selected => f.object.theme)) %>
+  </div>
   <div class="actions" id="team_actions">
     <%= f.submit %> 
   </div>

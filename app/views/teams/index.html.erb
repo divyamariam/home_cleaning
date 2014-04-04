@@ -23,8 +23,9 @@
   $('form#new_team').submit(function(e) {  
     // alert("submitting in new form");
     var tname = $.trim($('#team_team_name').val());
+    var theme = $.trim($('#team_theme').val());
     var valuesToSubmit = $(this).serialize();
-    if (tname.length > 0){
+    if (tname.length > 0 && theme != 0 ){
       $.modal.close();
       $.ajax({
           type: "POST",
@@ -38,7 +39,7 @@
       return false; // prevents normal behaviour
     }
     else {
-      alert("Team name cannot be blank");
+      alert("Team name/theme cannot be blank");
       return false;
     }
   });

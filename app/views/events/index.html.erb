@@ -116,13 +116,7 @@
             <div class="external-events">
               <% inr = 1 %>
               <% @teams.each do |team| %>
-                <% if inr%3 == 0 %>           
-                <div class="external-event label-success">
-                <% elsif inr%3 == 1%>
-                <div class="external-event label-pink">
-                <%else %>
-                <div class="external-event label-info">
-                <% end %>
+                <div class="external-event <%= team.theme %>">
                 <!-- check_box('teamlist', '',{}, team.id, 'lst') %> -->
                 <%= check_box_tag "chkboxName", team.id, :class =>"abc" %> <%= team.team_name %></div>
                 <% inr += 1 %>
