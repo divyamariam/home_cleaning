@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Areacode:</strong>
+  <%= @area.areacode %>
+</p>
+
+<p>
+  <strong>Latitude:</strong>
+  <%= @area.latitude %>
+</p>
+
+<p>
+  <strong>Longitude:</strong>
+  <%= @area.longitude %>
+</p>
+
+<p>
+  <strong>Address:</strong>
+  <%= @area.address %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @area.description %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @area.title %>
+</p>
+
+<%= link_to 'Edit', edit_area_path(@area) %> |
+<%= link_to 'Back', areas_path %>

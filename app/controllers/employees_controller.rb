@@ -5,7 +5,7 @@ class EmployeesController < ApplicationController
   # GET /employees.json
   def index
     @employees = Employee.all
-    puts @employees.inspect
+    # puts @employees.inspect
     @employee = Employee.new
   end
 

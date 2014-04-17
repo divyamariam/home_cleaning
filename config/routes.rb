@@ -1,4 +1,6 @@
 FullcalendarRails::Application.routes.draw do
+  resources :areas
+
   resources :employees
 
   # resources :high_scores

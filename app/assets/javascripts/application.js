@@ -4,8 +4,9 @@
 //= require_tree
 //= require jquery.modal
 //= require jquery.modal.min
-
- // require jquery.ui.all
+// require jquery.ui.all
+//= require underscore
+//= require gmaps/google
 
 function moveEvent(event, dayDelta, minuteDelta, allDay){
   // data: 'id=' + event.id + '&title=' + event.title + '&day_delta=' + dayDelta + '&minute_delta=' + minuteDelta + '&all_day=' + allDay + '&authenticity_token=' + authenticity_token,

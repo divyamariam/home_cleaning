@@ -24,7 +24,19 @@ class EventsController < ApplicationController
     if session[:username].nil?
       redirect_to members_url
     end
-     @teams = Team.all
+    @teams = Team.all
+    # @areas = Area.all
+    @row_data = Event.where('month(endtime)=month(now())').uniq.pluck(:area_code)
+    if @row_data != nil
+      area_codes = @row_data.join(",").gsub(",","','")
+      # puts area_codes.inspect
+      @area_day_wise = Area.where("areacode in ('#{area_codes}')")
+    end
+    @hash = Gmaps4rails.build_markers(@area_day_wise) do |area, marker|
+      marker.lat area.latitude
+      marker.lng area.longitude
+      marker.infowindow area.description
+    end
   end
   
   
