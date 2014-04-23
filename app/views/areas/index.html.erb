@@ -19,30 +19,25 @@
 <table>
   <thead>
     <tr>
-      <th>Areacode</th>
-      <th>Latitude</th>
-      <th>Longitude</th>
-      <th>Address</th>
-      <th>Description</th>
-      <th>Title</th>
-      <th></th>
-      <th></th>
-      <th></th>
+      <th width="10%">Areacode</th>
+      <th width="10%">Latitude</th>
+      <th width="10%">Longitude</th>
+      <th width="10%">Address</th>
+      <th width="10%"></th>
+      <th width="10%"></th>
     </tr>
   </thead>
 
   <tbody>
     <% @areas.each do |area| %>
       <tr>
-        <td><%= area.areacode %></td>
-        <td><%= area.latitude %></td>
-        <td><%= area.longitude %></td>
-        <td><%= area.address %></td>
-        <td><%= area.description %></td>
-        <td><%= area.title %></td>
-        <td><%= link_to 'Show', area %></td>
-        <td><%= link_to 'Edit', edit_area_path(area) %></td>
-        <td><%= link_to 'Destroy', area, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td width="10%"><%= area.areacode %></td>
+        <td width="10%"><%= area.address %></td>
+        <td width="10%"><%= area.latitude %></td>
+        <td width="10%"><%= area.longitude %></td>
+         <!-- link_to 'Show', area %> -->
+        <td width="10%"><%= link_to 'Edit', edit_area_path(area) %></td>
+        <td width="10%"><%= link_to 'Destroy', area, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
